@@ -52,7 +52,7 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             Telegram.WebApp.ready();
-
+            console.log(Telegram.WebApp.initDataUnsafe.user);
             function getUrlParams() {
                 const params = new URLSearchParams(window.location.search);
                 let startParam = params.get('tgWebAppStartParam');
