@@ -9,8 +9,9 @@
     <script>
         function parseParams(params) {
             let paramList = params.split("_");
-            console.log(`https://${paramList[paramList.length-2]}.${paramList[paramList.length-1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`);
-            return `https://${paramList[paramList.length-2]}.${paramList[paramList.length-1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`;
+            let domain = paramList[paramList.length-1].split("2557")
+            console.log(`https://${domain[0]}.${domain[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`);
+            return `https://${domain[0]}.${domain[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`;
         }
 
         function startTransition(params) {
