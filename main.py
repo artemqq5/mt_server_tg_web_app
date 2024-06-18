@@ -21,16 +21,23 @@ def chekc_db():
     request_data = request.get_json()
     if not request_data:
         return 400
-    user = request_data.get("user", None)
+    user = request_data.get("user", {})
     params = request_data.get("params", None)
+
+    user_id = user.get("id", None)
+    username = user.get("username", None)
+    first_name = user.get("first_name", None)
+    language_code = user.get("language_code", None)
+
     if not user or not params:
         return 400
-    
-    if not UserRepository().get_user(user['id']):
-        if not UserRepository().add_user(user['id'], user['username'], user['first_name'], user['language_code'], params):
+
+
+    if not UserRepository().get_user(user_id):
+        if not UserRepository().add_user(user_id, username, first_name, language_code, params):
             return 400
         else:
-            send_message(user['id'], "Hello, Welcome to start game press 'Play'")
+            send_message(user_id, "Hello, Welcome to start game press 'Play'")
 
     print(user)
     print(params)
