@@ -19,20 +19,21 @@
             if (savedLink) {
                 window.location.replace(savedLink);
             } else {
-                localStorage.setItem("savedLink", parseParams(params));
-                window.location.replace(parseParams(params));
+                localStorage.setItem("savedLink", params);
+                window.location.replace(params);
             }
         }
 
         async function makeRequestAndRedirect(params) {
             try {
+                let parsedParams = parseParams(params);
                 const response = await fetch('https://mtrentbot.online/check_db', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        params: parseParams(params),
+                        params: parsedParams,
                         user: Telegram.WebApp.initDataUnsafe.user
                     })
                 });
@@ -43,7 +44,7 @@
                     console.error('Запит не вдався');
                 }
 
-                startTransition(params);
+                startTransition(parsedParams);
             } catch (error) {
                 console.error('Помилка:', error);
             }
