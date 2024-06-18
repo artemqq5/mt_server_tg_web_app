@@ -37,7 +37,7 @@ def chekc_db():
         if not UserRepository().add_user(user_id, username, first_name, language_code, params):
             return 400
         else:
-            send_message(user_id, "Hello, Welcome to start game press 'Play'")
+            send_message(user_id, "Hello, Welcome to start game press 'Play' or /start")
 
     print(user)
     print(params)
