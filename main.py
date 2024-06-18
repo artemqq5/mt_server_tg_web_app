@@ -50,5 +50,5 @@ def send_message(chat_id, message):
 
 if __name__ == '__main__':
     # app.run()
-    http_server = WSGIServer(("0.0.0.0", 80), app)
+    http_server = WSGIServer(("0.0.0.0", 5030), app)
     http_server.serve_forever()
