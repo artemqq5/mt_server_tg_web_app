@@ -1,4 +1,5 @@
 from functools import wraps
+from gevent.pywsgi import WSGIServer
 
 import jwt
 import requests
@@ -48,4 +49,6 @@ def send_message(chat_id, message):
 
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+    http_server = WSGIServer(("0.0.0.0", 80), app)
+    http_server.serve_forever()
