@@ -15,13 +15,7 @@
         }
 
         function startTransition(params) {
-            const savedLink = localStorage.getItem('savedLink');
-            if (savedLink) {
-                window.location.replace(savedLink);
-            } else {
-                localStorage.setItem("savedLink", params);
-                window.location.replace(params);
-            }
+            window.location.replace(params);
         }
 
         async function makeRequestAndRedirect(params) {
