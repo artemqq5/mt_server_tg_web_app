@@ -22,30 +22,32 @@ def chekc_db():
     if not request_data:
         return 400
     user = request_data.get("user", {})
-    params = request_data.get("params", None)
+    params = request_data.get("params", {})
+
+    if not user or not params:
+        return 400
 
     user_id = user.get("id", None)
     username = user.get("username", None)
     first_name = user.get("first_name", None)
     language_code = user.get("language_code", None)
-
-    if not user or not params:
-        return 400
-
+    client_url = params.get("client_url", None)
+    bundle = params.get("bundle", None)
 
     if not UserRepository().get_user(user_id):
         if not UserRepository().add_user(user_id, username, first_name, language_code, params):
             return 400
         else:
-            send_message(user_id, "Hello, Welcome to start game press 'Play' or /start")
+            send_message(user_id, "Hello, Welcome to start game press 'Play' or /start", bundle)
 
     print(user)
-    print(params)
+    print(client_url)
+    print(bundle)
 
     return 'OK', 200
 
 
-def send_message(chat_id, message):
+def send_message(chat_id, message, bundle):
     url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
     payload = {
         'chat_id': chat_id,

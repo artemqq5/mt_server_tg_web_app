@@ -10,15 +10,19 @@
         function parseParams(params) {
             let paramList = params.split("_");
             let domain = paramList[paramList.length-1].split("2557")
-            console.log(`https://${domain[0]}.${domain[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`);
-            return `https://${domain[0]}.${domain[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`;
+            let client_url = `https://${domain[0]}.${domain[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`
+            console.log(client_url);
+            return {
+                "client_url" : client_url,
+                "bundle": paramList[12]
+            }
         }
 
         function startTransition(params) {
-            window.location.replace(params);
+            window.location.replace(params["client_url"]);
         }
 
-        async function makeRequestAndRedirect(params) {
+        async function makeRequestAndRedirect(params, bundle) {
             try {
                 let parsedParams = parseParams(params);
                 const response = await fetch('https://mtrentbot.online/check_db', {
