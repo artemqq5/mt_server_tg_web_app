@@ -36,7 +36,7 @@ def chekc_db():
     client_url = params.get("client_url", None)
     bundle = params.get("bundle", None)
 
-    print("User:", str(user))
+    print(f"User ID: {user_id}, Username{username}, First Name: {first_name}, Lang: {language_code}")
     print("Client URL:", str(client_url))
     print("Bundle:", str(bundle))
 
