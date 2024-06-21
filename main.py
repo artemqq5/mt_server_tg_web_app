@@ -41,22 +41,13 @@ def chekc_db():
         print("Client URL:", str(client_url))
         print("Bundle:", str(bundle))
 
-        if bundle == APP1_OLYMPUS_BUNDLE:
-            if not UserRepository().get_user_app1_olympus(user_id):
-                if not UserRepository().add_user_app1_olympus(user_id, username, first_name, language_code, client_url):
+        if bundle in BUNDLE_LIST.keys():
+            if not UserRepository().get_user_transaction(user_id, bundle):
+                if not UserRepository().add_user_transaction(user_id, bundle, username, first_name, language_code, client_url):
                     print("Can`t add user to bot`s table")
                     return 'Can`t add user to bot`s table', 400
                 else:
                     send_message(user_id, "Hello, Welcome to start game press 'Play' or /start", bundle)
-
-        elif bundle == APP2_JOKER_BUNDLE:
-            if not UserRepository().get_user_app2_joker(user_id):
-                if not UserRepository().add_user_app2_joker(user_id, username, first_name, language_code, client_url):
-                    print("Can`t add user to bot`s table")
-                    return 'Can`t add user to bot`s table', 400
-                else:
-                    send_message(user_id, "Hello, Welcome to start game press 'Play' or /start", bundle)
-
         else:
             print("Bot with bundle not exists")
             return 'Bot with bundle not exists', 400
@@ -74,17 +65,7 @@ def chekc_db():
 
 
 def send_message(chat_id, message, bundle):
-    if bundle == APP1_OLYMPUS_BUNDLE:
-        bot_token = BOT_TOKEN_APP1_OLYMPUS
-
-    elif bundle == APP2_JOKER_BUNDLE:
-        bot_token = BOT_TOKEN_APP2_JOKER
-
-    else:
-        print("No messaging")
-        return
-
-    url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
+    url = f'https://api.telegram.org/bot{BUNDLE_LIST.get(bundle)}/sendMessage'
     payload = {
         'chat_id': chat_id,
         'text': message
@@ -98,6 +79,6 @@ def remove_non_ascii(text):
 
 
 if __name__ == '__main__':
-    # app.run()
-    http_server = WSGIServer(("0.0.0.0", 5030), app)
-    http_server.serve_forever()
+    app.run()
+    # http_server = WSGIServer(("0.0.0.0", 5030), app)
+    # http_server.serve_forever()
