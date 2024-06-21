@@ -34,9 +34,9 @@ def chekc_db():
     client_url = params.get("client_url", None)
     bundle = params.get("bundle", None)
 
-    print(user)
-    print(client_url)
-    print(bundle)
+    print("User:", user)
+    print("Client URL:", client_url)
+    print("Bundle:", bundle)
 
     if bundle == APP1_OLYMPUS_BUNDLE:
         if not UserRepository().get_user_app1_olympus(user_id):
