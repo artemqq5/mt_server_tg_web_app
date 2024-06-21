@@ -25,6 +25,16 @@ class UserRepository(DefaultDataBase):
         query = "SELECT * FROM `app1_olympus_users` WHERE `user_id` = %s;"
         return self._select_one(query, (user_id, ))
 
+     # APP 2 - Joker King
+    
+    def add_user_app2_joker(self, user_id, username, firstname, lang_key, client_url):
+        query = "INSERT INTO `app2_joker_users` (user_id, username, firstname, lang_key, url) VALUES (%s, %s, %s, %s, %s);"
+        return self._insert(query, (user_id, username, firstname, lang_key, client_url))
+
+    def get_user_app2_joker(self, user_id):
+        query = "SELECT * FROM `app2_joker_users` WHERE `user_id` = %s;"
+        return self._select_one(query, (user_id, ))
+
     # def get_users(self):
     #     query = "SELECT * FROM `users` WHERE `role` = %s;"
     #     return self._select(query, (USER,))

@@ -5,7 +5,7 @@ import jwt
 import requests
 from flask import Flask, render_template, request, jsonify
 
-from config import APP1_OLYMPUS_BUNDLE, BOT_TOKEN_OLYMPUS_APP1
+from config import *
 from data.UserRepository import UserRepository
 
 app = Flask(__name__)
@@ -47,6 +47,15 @@ def chekc_db():
                 return 'Can`t add user to bot`s table', 400
             else:
                 send_message(user_id, "Hello, Welcome to start game press 'Play' or /start", bundle)
+
+    elif bundle == APP2_JOKER_BUNDLE:
+        if not UserRepository().get_user_app2_joker(user_id):
+            if not UserRepository().add_user_app2_joker(user_id, username, first_name, language_code, client_url):
+                print("Can`t add user to bot`s table")
+                return 'Can`t add user to bot`s table', 400
+            else:
+                send_message(user_id, "Hello, Welcome to start game press 'Play' or /start", bundle)
+                
     else:
         print("Bot with bundle not exists")
         return 'Bot with bundle not exists', 400
@@ -62,7 +71,11 @@ def chekc_db():
 
 def send_message(chat_id, message, bundle):
     if bundle == APP1_OLYMPUS_BUNDLE:
-        bot_token = BOT_TOKEN_OLYMPUS_APP1
+        bot_token = BOT_TOKEN_APP1_OLYMPUS
+
+    elif bundle == APP2_JOKER_BUNDLE:
+        bot_token = BOT_TOKEN_APP2_JOKER
+
     else:
         print("No messaging")
         return
