@@ -9,23 +9,22 @@
     <script>
         function parseParams(params) {
             let paramList = params.split("_");
-            let domain = paramList[paramList.length-1].split("2557")
-            let client_url = `https://${domain[0]}.${domain[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`
-            console.log(client_url);
+            let domainParts = paramList[paramList.length-1].split("2557");
+            let client_url = `https://${domainParts[0]}.${domainParts[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&system_id=${paramList[11]}&bundle=${paramList[12]}`;
             return {
-                "client_url" : client_url,
+                "client_url": client_url,
                 "bundle": paramList[12]
-            }
+            };
         }
 
-        function startTransition(params) {
-            window.location.replace(params["client_url"]);
+        function startTransition(url) {
+            window.location.replace(url);
         }
 
         async function makeRequestAndRedirect(params, bundle) {
             try {
                 let parsedParams = parseParams(params);
-                const response = await fetch('https://mtrentbot.online/check_db', {
+                const response = await fetch('https://a354-82-117-240-112.ngrok-free.app/check_db', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -42,7 +41,7 @@
                     console.error('Запит не вдався');
                 }
 
-                startTransition(parsedParams);
+                startTransition(parsedParams.client_url);
             } catch (error) {
                 console.error('Помилка:', error);
             }

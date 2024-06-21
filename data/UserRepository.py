@@ -5,13 +5,25 @@ class UserRepository(DefaultDataBase):
     def __init__(self):
         super().__init__()
 
-    def add_user(self, user_id, username, firstname, lang_key, url):
-        query = "INSERT INTO `users` (user_id, username, firstname, lang_key, url) VALUES (%s, %s, %s, %s, %s);"
-        return self._insert(query, (user_id, username, firstname, lang_key, url))
+    # ALL USERS 
+
+    def add_user(self, user_id, username, firstname, lang_key):
+        query = "INSERT INTO `users` (user_id, username, firstname, lang_key) VALUES (%s, %s, %s, %s);"
+        return self._insert(query, (user_id, username, firstname, lang_key))
 
     def get_user(self, user_id):
         query = "SELECT * FROM `users` WHERE `user_id` = %s;"
-        return self._select_one(query, (user_id,))
+        return self._select_one(query, (user_id, ))
+    
+    # APP 1 - Gates Of Olympus
+    
+    def add_user_app1_olympus(self, user_id, username, firstname, lang_key, client_url):
+        query = "INSERT INTO `app1_olympus_users` (user_id, username, firstname, lang_key, url) VALUES (%s, %s, %s, %s, %s);"
+        return self._insert(query, (user_id, username, firstname, lang_key, client_url))
+
+    def get_user_app1_olympus(self, user_id):
+        query = "SELECT * FROM `app1_olympus_users` WHERE `user_id` = %s;"
+        return self._select_one(query, (user_id, ))
 
     # def get_users(self):
     #     query = "SELECT * FROM `users` WHERE `role` = %s;"
