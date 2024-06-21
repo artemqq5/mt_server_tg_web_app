@@ -20,11 +20,13 @@ def home():
 def chekc_db():
     request_data = request.get_json()
     if not request_data:
+        print("reqest is None")
         return 'reqest is None', 400
     user = request_data.get("user", {})
     params = request_data.get("params", {})
 
     if not user:
+        print("User not exists")
         return 'User not exists', 400
 
     user_id = user.get("id", None)
@@ -34,23 +36,27 @@ def chekc_db():
     client_url = params.get("client_url", None)
     bundle = params.get("bundle", None)
 
-    print("User:", user)
-    print("Client URL:", client_url)
-    print("Bundle:", bundle)
+    print("User:", str(user))
+    print("Client URL:", str(client_url))
+    print("Bundle:", str(bundle))
 
     if bundle == APP1_OLYMPUS_BUNDLE:
         if not UserRepository().get_user_app1_olympus(user_id):
             if not UserRepository().add_user_app1_olympus(user_id, username, first_name, language_code, client_url):
+                print("Can`t add user to bot`s table")
                 return 'Can`t add user to bot`s table', 400
             else:
                 send_message(user_id, "Hello, Welcome to start game press 'Play' or /start", bundle)
     else:
+        print("Bot with bundle not exists")
         return 'Bot with bundle not exists', 400
 
     if not UserRepository().get_user(user_id):
         if not UserRepository().add_user(user_id, username, first_name, language_code):
+            print("User can`t add to all users table")
             return 'User can`t add to all users table', 400
 
+    print("OK")
     return 'OK', 200
 
 
@@ -58,6 +64,7 @@ def send_message(chat_id, message, bundle):
     if bundle == APP1_OLYMPUS_BUNDLE:
         bot_token = BOT_TOKEN_OLYMPUS_APP1
     else:
+        print("No messaging")
         return
 
     url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
