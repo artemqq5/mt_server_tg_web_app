@@ -1,18 +1,12 @@
 from functools import wraps
 from gevent.pywsgi import WSGIServer
-
+import re
 import jwt
 import requests
 from flask import Flask, render_template, request, jsonify
 
 from config import APP1_OLYMPUS_BUNDLE, BOT_TOKEN_OLYMPUS_APP1
 from data.UserRepository import UserRepository
-
-import sys
-import codecs
-
-sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
-sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
 
 app = Flask(__name__)
 
@@ -42,7 +36,7 @@ def chekc_db():
     client_url = params.get("client_url", None)
     bundle = params.get("bundle", None)
 
-    print("User:", str(user))
+    print("User:", remove_non_ascii(str(user)))
     print("Client URL:", str(client_url))
     print("Bundle:", str(bundle))
 
@@ -80,6 +74,10 @@ def send_message(chat_id, message, bundle):
     }
 
     requests.post(url, data=payload)
+
+
+def remove_non_ascii(text):
+    return re.sub(r'[^\x00-\x7F]+', '', text)
 
 
 if __name__ == '__main__':
