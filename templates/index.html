@@ -10,7 +10,8 @@
         function parseParams(params) {
             let paramList = params.split("_");
             let domainParts = paramList[paramList.length-1].split("2557");
-            let client_url = `https://${domainParts[0]}.${domainParts[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&fbclid=${paramList[11].split("r3p1ac3m3", "_")}&system_id=${paramList[12]}&bundle=${paramList[13]}`;
+            let fbclid = paramList[11].split("r3p1ac3m3", "_");
+            let client_url = `https://${domainParts[0]}.${domainParts[1]}/${paramList[2]}?sub1=${paramList[0]}&sub2=${paramList[1]}&sub3=${paramList[2]}&sub4=${paramList[3]}&sub5=${paramList[4]}&sub6=${paramList[5]}&sub7=${paramList[6]}&sub8=${paramList[7]}&sub9=${paramList[8]}&sub10=${paramList[9]}&pixel=${paramList[10]}&fbclid=${fbclid}&system_id=${paramList[12]}&bundle=${paramList[13]}`;
             return {
                 "client_url": client_url,
                 "bundle": paramList[13]
