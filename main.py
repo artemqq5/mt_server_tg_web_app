@@ -1,3 +1,4 @@
+import json
 from functools import wraps
 from gevent.pywsgi import WSGIServer
 import re
@@ -43,11 +44,12 @@ def chekc_db():
 
         if bundle in BUNDLE_LIST.keys():
             if not UserRepository().get_user_transaction(user_id, bundle):
-                if not UserRepository().add_user_transaction(user_id, bundle, username, first_name, language_code, client_url):
+                if not UserRepository().add_user_transaction(user_id, bundle, username, first_name, language_code,
+                                                             client_url):
                     print("Can`t add user to bot`s table")
                     return 'Can`t add user to bot`s table', 400
                 else:
-                    send_message(user_id, "Hello, Welcome to start game press 'Play' or /start", bundle)
+                    send_message(user_id, "Hello, Welcome to Game. Press 'Play' to Start", bundle, client_url)
         else:
             print("Bot with bundle not exists")
             return 'Bot with bundle not exists', 400
@@ -64,11 +66,17 @@ def chekc_db():
         return 'Error', 400
 
 
-def send_message(chat_id, message, bundle):
+def send_message(chat_id, message, bundle, client_url):
     url = f'https://api.telegram.org/bot{BUNDLE_LIST.get(bundle)}/sendMessage'
+    reply_keyboard = [[{'text': 'Play', 'web_app': {'url': client_url}}]]
     payload = {
         'chat_id': chat_id,
-        'text': message
+        'text': message,
+        'reply_markup': json.dumps({
+            'keyboard': reply_keyboard,
+            'resize_keyboard': True,
+            'one_time_keyboard': True
+        })
     }
 
     requests.post(url, data=payload)
