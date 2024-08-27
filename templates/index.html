@@ -21,9 +21,7 @@
     }
 
     function startTransition(url) {
-      var iframe = document.getElementById("box-web");
-      iframe.src = url;
-      // window.location.replace(url);
+      window.location.replace(url);
     }
 
     async function makeRequestAndRedirect(params, bundle) {
@@ -75,8 +73,7 @@
 </head>
 
 <body>
-  <iframe is="x-frame-bypass" id="box-web" src="https://pin-up.ua"></iframe>
-  <!-- <div class="loading-bar"></div> -->
+  <div class="loading-bar"></div>
 </body>
 
 </html>
