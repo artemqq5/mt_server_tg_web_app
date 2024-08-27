@@ -86,7 +86,7 @@ def remove_non_ascii(text):
     return re.sub(r'[^\x00-\x7F]+', '', text)
 
 
-if __name__ == '__main__':
-    app.run(threaded=True)
+# if __name__ == '__main__':
+#     app.run(threaded=True)
     # http_server = WSGIServer(("0.0.0.0", 5030), app)
     # http_server.serve_forever()
