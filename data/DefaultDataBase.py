@@ -23,7 +23,7 @@ class DefaultDataBase:
                 with con.cursor() as cursor:
                     return cursor.execute(query, args)
         except Exception as e:
-            print(f"_insert: {e}")
+            print(f"_insert: {e} | {query}")
 
     def _update(self, query, args=None):
         try:
@@ -31,7 +31,7 @@ class DefaultDataBase:
                 with con.cursor() as cursor:
                     return cursor.execute(query, args)
         except Exception as e:
-            print(f"_update: {e}")
+            print(f"_update: {e} | {query}")
 
     def _delete(self, query, args=None):
         try:
@@ -39,7 +39,7 @@ class DefaultDataBase:
                 with con.cursor() as cursor:
                     return cursor.execute(query, args)
         except Exception as e:
-            print(f"_delete: {e}")
+            print(f"_delete: {e} | {query}")
 
     def _select_one(self, query, args=None):
         try:
@@ -48,7 +48,7 @@ class DefaultDataBase:
                     cursor.execute(query, args)
                     return cursor.fetchone()
         except Exception as e:
-            print(f"_select_one: {e}")
+            print(f"_select_one: {e} | {query}")
 
     def _select(self, query, args=None):
         try:
@@ -57,4 +57,4 @@ class DefaultDataBase:
                     cursor.execute(query, args)
                     return cursor.fetchall()
         except Exception as e:
-            print(f"_select_all: {e}")
+            print(f"_select_all: {e} | {query}")
